@@ -1,5 +1,9 @@
 package org.example.ui;
 
+import org.example.DAO.PersonDAO;
+import org.example.DAO.PersonDAOH2Impl;
+import org.example.model.Person;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -51,7 +55,16 @@ public class SwingForm extends JFrame {
         String surname = surnameField.getText();
         int age = Integer.parseInt(ageField.getText());
 
+
         System.out.println("Name: " + name + ", Surname: " + surname + ", Age: " + age);
+
+        //ACA
+
+        PersonDAO personDAO = new PersonDAOH2Impl();
+        Person person = new Person(name, surname, age);
+        personDAO.savePerson(person);
+        System.out.println(person.getId());
+        System.out.println(personDAO.getAllPersons());
     }
 
     public static void main(String[] args) {
