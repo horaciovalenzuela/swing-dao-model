@@ -52,6 +52,7 @@ public class PersonDAOH2Impl implements PersonDAO{
     @Override
     public List<Person> getAllPersons() {
         List<Person> persons = new ArrayList<>();
+
         try {
             Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
             Statement statement = connection.createStatement();
