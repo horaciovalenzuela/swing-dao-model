@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class SwingForm extends JFrame {
 
@@ -48,7 +49,44 @@ public class SwingForm extends JFrame {
         panel.add(sendButton);
 
         add(panel);
+
+        JButton sendButton2 = new JButton("Send");
+        sendButton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sendData();
+            }
+        });
+        panel.add(sendButton2);
+
+        JButton listAllButton = new JButton("Listar Todos");
+        listAllButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listAllPersons();
+            }
+        });
+        panel.add(listAllButton);
+
+        add(panel);
     }
+
+    private void listAllPersons() {
+        PersonDAO personDAO = new PersonDAOH2Impl();
+        List<Person> allPersons = personDAO.getAllPersons();
+        for (Person person : allPersons) {
+            System.out.println(person);
+        }
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                PersonsTableFrame tableFrame = new PersonsTableFrame(allPersons);
+                tableFrame.setVisible(true);
+            }
+        });
+    }
+
 
     private void sendData() {
         String name = nameField.getText();
